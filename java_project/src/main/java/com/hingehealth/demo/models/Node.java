@@ -7,10 +7,9 @@ import java.util.Map;
 
 public class Node {
 
-    @JsonProperty(value = " ")
-    private Map<Integer, Map<String, Object>> idToNodesMap = new HashMap<>();
+    private final Map<Integer, Map<String, Object>> treeMap = new HashMap<>();
 
-    public Map<Integer, Map<String, Object>> getIdToNodesMap() {
-        return idToNodesMap;
+    public Map<Integer, Map<String, Object>> getTreeMap() {
+        return treeMap;
     }
 }
