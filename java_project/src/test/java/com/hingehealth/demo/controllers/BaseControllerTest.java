@@ -1,8 +1,9 @@
 package com.hingehealth.demo.controllers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import com.hingehealth.demo.services.TreeService;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BaseControllerTest {
 
