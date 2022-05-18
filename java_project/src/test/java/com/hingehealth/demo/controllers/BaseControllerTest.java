@@ -1,10 +1,13 @@
 package com.hingehealth.demo.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 class BaseControllerTest {
-    private BaseController baseController = new BaseController();
+
+    private TreeService treeService;
+    private BaseController baseController = new BaseController(treeService);
 
     @Test
     void testHelloWorld() {
