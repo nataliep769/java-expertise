@@ -1,6 +1,5 @@
 package com.hingehealth.demo.controllers;
 
-import com.hingehealth.demo.models.Node;
 import com.hingehealth.demo.services.TreeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +23,12 @@ public class BaseController {
     }
 
     @GetMapping("/tree")
-    public List<Map<Integer, Map<String, Object>>> getTree() {
-        return Arrays.asList(treeService.createTree());
+    public void getTree() {
+        treeService.getTree();
     }
+
+    //    public List<Map<Integer, Map<String, Object>>> getTree() {
+
 
 //    @PostMapping("/tree")
 //    public Node addToTree(

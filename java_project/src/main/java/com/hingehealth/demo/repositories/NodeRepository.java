@@ -8,4 +8,6 @@ import java.util.List;
 public interface NodeRepository extends JpaRepository<Node, Integer> {
 
      List<Node> findByParentId(Integer parentId);
+
+     Node getByParentIdIsNull();
 }
