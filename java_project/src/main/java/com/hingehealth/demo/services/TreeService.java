@@ -16,36 +16,47 @@ public class TreeService {
         this.nodeRepository = nodeRepository;
     }
 
-    // Save these on load
-    public void getTree() {
+    // Version without persistence
+    public Map<Integer, Map<String, Object>> createTreeNoPersistence() {
+        NodeResponse node2 = new NodeResponse();
+        node2.getTreeMap().put(2, createInternalMap("ant", null));
+
+        NodeResponse node6 = new NodeResponse();
+        node6.getTreeMap().put(6, createInternalMap("elephant", null));
+
+        NodeResponse node4 = new NodeResponse();
+        node4.getTreeMap().put(4, createInternalMap("cat", null));
+
+        NodeResponse node7 = new NodeResponse();
+        node7.getTreeMap().put(7, createInternalMap("frog", null));
+
+        NodeResponse node5 = new NodeResponse();
+        node5.getTreeMap().put(5, createInternalMap("dog", Collections.singletonList(node6.getTreeMap())));
+
+        NodeResponse node3 = new NodeResponse();
+        node3.getTreeMap().put(3, createInternalMap("bear", Arrays.asList(node4.getTreeMap(), node5.getTreeMap())));
+
+        NodeResponse root = new NodeResponse();
+        root.getTreeMap().put(1, createInternalMap("root", Arrays.asList(node2.getTreeMap(), node3.getTreeMap(), node7.getTreeMap())));
+
+        return root.getTreeMap();
+    }
+
+    public Map<Integer, Map<String, Object>> buildTree() {
         List<Node> nodes = nodeRepository.findAll();
         NodeResponse nodeResponse = new NodeResponse();
 
         Map<Integer, Map<String, Object>> treeMap = new HashMap<>();
-
-        // TODO: Should this be recursive?
         for (Node node : nodes) {
-            Map<String, Object> internalMap = new LinkedHashMap<>();
-            internalMap.put("label", node.getLabel());
-            internalMap.put("children", node.getChildren()); // worry about stripping extra values out later
-            treeMap.put(node.getId(), internalMap);
+            Node temp = node;
+            if (node.getChildren().isEmpty()) {
+                treeMap.put(node.getId(), createInternalMap(node.getLabel(), null));
+            } else {
 
-            // Use a while loop and build tree structure?
-            if (node.getChildren() != null) {
-                for (Node child : node.getChildren()) {
-                    Map<String, Object> childrenMap = new LinkedHashMap<>();
-                    childrenMap.put("label", child.getLabel());
-                    childrenMap.put("children", child.getChildren());
-                }
             }
         }
-        // root.getTreeMap().put(root.getId(), createInternalMap("root", Arrays.asList(node2.getTreeMap(), node3.getTreeMap(), node7.getTreeMap())));
-        // node2.getTreeMap().put(node2.getId(), createInternalMap("ant", null));// Can we just find the newly added node by its parent id?
-        //node3.getTreeMap().put(node3.getId(), createInternalMap("bear", Arrays.asList(node4.getTreeMap(), node5.getTreeMap())));
-        //node4.getTreeMap().put(node4.getId(), createInternalMap("cat", null));
-        // node5.getTreeMap().put(node5.getId(), createInternalMap("dog", Collections.singletonList(node6.getTreeMap())));
-        //  node6.getTreeMap().put(node6.getId(), createInternalMap("elephant", null));
-        //node7.getTreeMap().put(node7.getId(), createInternalMap("frog", null));
+
+        return treeMap;
     }
 
     private Map<String, Object> createInternalMap(String label, List<Map<Integer, Map<String, Object>>> children) {

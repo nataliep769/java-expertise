@@ -1,10 +1,10 @@
 package com.hingehealth.demo.controllers;
 
 import com.hingehealth.demo.services.TreeService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,8 +23,8 @@ public class BaseController {
     }
 
     @GetMapping("/tree")
-    public void getTree() {
-        treeService.getTree();
+    public Map<Integer, Map<String, Object>> getTree() {
+        return treeService.buildTree();
     }
 
     //    public List<Map<Integer, Map<String, Object>>> getTree() {
