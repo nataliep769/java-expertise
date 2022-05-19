@@ -113,7 +113,7 @@ Implement the route, and ensure that a `GET /api/tree` request returns the updat
 
 <br>
 
-### 3. Data persistance
+### 3. Data persistence
 
 This part __does not__ have to be implemented in code. Document the queries, methods, and decisions you would make if implementing. 
 <br><br>

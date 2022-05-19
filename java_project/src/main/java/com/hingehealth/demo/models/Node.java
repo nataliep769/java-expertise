@@ -1,15 +1,45 @@
 package com.hingehealth.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import java.util.HashMap;
-import java.util.Map;
-
+@Entity
+@Table(name = "node")
 public class Node {
 
-    private final Map<Integer, Map<String, Object>> treeMap = new HashMap<>();
+    @Id
+    @Column(name = "id")
+    private Integer id;
 
-    public Map<Integer, Map<String, Object>> getTreeMap() {
-        return treeMap;
+    @Column(name = "parentId")
+    private Integer parentId;
+
+    @Column(name = "label")
+    private String label;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }
