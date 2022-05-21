@@ -38,7 +38,7 @@ public class TreeService {
             internalMap.put("children", new ArrayList<>());
             childMap.put(child.getId(), internalMap);
             ((List) childrenMap.get("children")).add(childMap);
-            createMapFromNode(child, nodeMap);
+            createMapFromNode(child, childMap);
         }
         nodeMap.put(node.getId(), childrenMap);
 
