@@ -1,7 +1,6 @@
 package com.hingehealth.demo.services;
 
 import com.hingehealth.demo.models.Node;
-import com.hingehealth.demo.models.NodeResponse;
 import com.hingehealth.demo.repositories.NodeRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,30 +26,22 @@ public class TreeService {
     }
 
     public Map<Integer, Map<String, Object>> createMapFromNode(Node node, Map<Integer, Map<String, Object>> nodeMap) {
-        Map<String, Object> childrenMap = new HashMap<>();
+        Map<String, Object> childrenMap = new LinkedHashMap<>();
         childrenMap.put("label", node.getLabel());
         childrenMap.put("children", new ArrayList<>());
-        nodeMap.put(node.getId(), childrenMap);
 
+        // The children map needs to be built before we set it
         for (Node child : node.getChildren()) {
-            Map<Integer, Map<String, Object>> childMap = new HashMap<>();
+            Map<Integer, Map<String, Object>> childMap = new LinkedHashMap<>();
             Map<String, Object> internalMap = new HashMap<>();
             internalMap.put("label", child.getLabel());
             internalMap.put("children", new ArrayList<>());
             childMap.put(child.getId(), internalMap);
             ((List) childrenMap.get("children")).add(childMap);
-           // createMapFromNode(child, nodeMap);
+            createMapFromNode(child, nodeMap);
         }
+        nodeMap.put(node.getId(), childrenMap);
 
         return nodeMap;
-    }
-
-
-    private Map<String, Object> createInternalMap(String label, List<Map<Integer, Map<String, Object>>> children) {
-        Map<String, Object> internalMap = new LinkedHashMap<>();
-        internalMap.put("label", label);
-        internalMap.put("children", children);
-
-        return internalMap;
     }
 }
