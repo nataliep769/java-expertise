@@ -1,5 +1,7 @@
 package com.hingehealth.demo.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,6 +11,8 @@ public class Node {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")
+    @GenericGenerator(name = "seq", strategy="increment")
     private Integer id;
 
     @Column(name = "label")
@@ -27,6 +31,7 @@ public class Node {
         this.id = id;
         this.label = label;
     }
+
     public Integer getId() {
         return id;
     }
@@ -53,9 +58,5 @@ public class Node {
 
     public List<Node> getChildren() {
         return children;
-    }
-
-    public void setChildren(List<Node> children) {
-        this.children = children;
     }
 }
