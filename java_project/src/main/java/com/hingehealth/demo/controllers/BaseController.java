@@ -1,5 +1,6 @@
 package com.hingehealth.demo.controllers;
 
+import com.hingehealth.demo.models.NodeRequest;
 import com.hingehealth.demo.services.TreeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +10,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class BaseController {
 
-    private TreeService treeService;
+    private final TreeService treeService;
 
     public BaseController(TreeService treeService) {
         this.treeService = treeService;
@@ -19,16 +20,16 @@ public class BaseController {
     public String helloWorld() {
         return "Hello World!";
     }
-//
-//    @RequestMapping(value = "/tree", method = RequestMethod.GET)
-//    public Map<Integer, Map<String, Object>> getTree() throws Exception {
-//        return treeService.createTreeMap();
-//    }
 
-    @RequestMapping(value = "/tree")
+    @GetMapping(value = "/tree")
+    public Map<Integer, Map<String, Object>> getTree() throws Exception {
+        return treeService.getTree();
+    }
+
+    @PostMapping(value = "/tree")
     public String addNodeToTree(
-            @RequestParam Integer parent
+            @RequestBody NodeRequest nodeRequest
     ) throws Exception {
-        return treeService.addChildToTree(parent, "meow");
+        return treeService.addNodeToTree(nodeRequest);
     }
 }

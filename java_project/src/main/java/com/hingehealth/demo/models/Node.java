@@ -11,8 +11,8 @@ public class Node {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")
-    @GenericGenerator(name = "seq", strategy="increment")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq")
+    @GenericGenerator(name = "seq", strategy = "increment")
     private Integer id;
 
     @Column(name = "label")
@@ -21,7 +21,7 @@ public class Node {
     @ManyToOne
     private Node parent;
 
-    @OneToMany(mappedBy="parent")
+    @OneToMany(mappedBy = "parent")
     private List<Node> children;
 
     public Node() {
@@ -34,10 +34,6 @@ public class Node {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getLabel() {
