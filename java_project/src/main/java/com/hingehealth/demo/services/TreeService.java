@@ -43,12 +43,14 @@ public class TreeService {
     public Map<Integer, Map<String, Object>> getTree(Node node, Map<Integer, Map<String, Object>> nodeMap) {
         Map<String, Object> childrenMap = createChildrenMap(node);
 
-        for (Node child : node.getChildren()) {
-            Map<Integer, Map<String, Object>> childMap = new LinkedHashMap<>();
-            Map<String, Object> internalMap = createChildrenMap(child);
-            childMap.put(child.getId(), internalMap);
-            ((List) childrenMap.get("children")).add(childMap);
-            getTree(child, childMap);
+        if (node.getChildren() != null) {
+            for (Node child : node.getChildren()) {
+                Map<Integer, Map<String, Object>> childMap = new LinkedHashMap<>();
+                Map<String, Object> internalMap = createChildrenMap(child);
+                childMap.put(child.getId(), internalMap);
+                ((List) childrenMap.get("children")).add(childMap);
+                getTree(child, childMap);
+            }
         }
         nodeMap.put(node.getId(), childrenMap);
 

@@ -27,11 +27,6 @@ public class Node {
     public Node() {
     }
 
-    public Node(Integer id, String label) {
-        this.id = id;
-        this.label = label;
-    }
-
     public Integer getId() {
         return id;
     }

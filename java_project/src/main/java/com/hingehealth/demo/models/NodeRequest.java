@@ -1,5 +1,6 @@
 package com.hingehealth.demo.models;
 
+
 public class NodeRequest {
 
     private Integer parentId;

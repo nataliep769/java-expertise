@@ -14,3 +14,6 @@ Run `./gradlew tasks` to see what targets you can run.
 
 Default target to build the project is `./gradlew assemble`
 Default target to launch the app is `./gradlew bootRun`
+
+# To Run the Project
+1. Open your terminal and 
