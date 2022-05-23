@@ -1,10 +1,13 @@
 package com.hingehealth.demo.services;
 
 import com.hingehealth.demo.models.Node;
+import com.hingehealth.demo.models.NodeRequest;
 import com.hingehealth.demo.repositories.NodeRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -12,16 +15,24 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class TreeServiceTest {
 
-    @InjectMocks
     private TreeService treeService;
+
+    @Captor
+    private ArgumentCaptor<Node> nodeCaptor;
 
     @Mock
     private NodeRepository nodeRepository;
+
+    @BeforeEach
+    public void setup() {
+        treeService = new TreeService(nodeRepository);
+    }
 
     @Test
     void getTree_valid() throws Exception {
@@ -80,5 +91,36 @@ public class TreeServiceTest {
 
         // THEN
         assertEquals("Root does not exist!", exception.getMessage());
+    }
+
+    @Test
+    void addNodeToTree_valid() throws Exception {
+        // GIVEN
+        NodeRequest nodeRequest = new NodeRequest(1, "hello");
+        Node parentNode = new Node(null, "parent node");
+        when(nodeRepository.findById(1)).thenReturn(Optional.of(parentNode));
+
+        // WHEN
+        String success = treeService.addNodeToTree(nodeRequest);
+
+        // THEN
+        verify(nodeRepository).save(nodeCaptor.capture());
+        Node expectedNode = nodeCaptor.getValue();
+        assertEquals("hello", expectedNode.getLabel());
+        assertEquals(parentNode, expectedNode.getParent());
+        assertEquals("You successfully added a new node to your tree!", success);
+    }
+
+    @Test
+    void addNodeToTree_parentDoesNotExist_throwsException() throws Exception {
+        // GIVEN
+        NodeRequest nodeRequest = new NodeRequest(1, "hello");
+        when(nodeRepository.findById(1)).thenReturn(Optional.empty());
+
+        // WHEN
+        Exception exception = assertThrows(Exception.class, () -> treeService.addNodeToTree(nodeRequest));
+
+        // THEN
+        assertEquals("A parent node with that id does not exist.", exception.getMessage());
     }
 }

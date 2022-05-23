@@ -48,7 +48,6 @@ public class TreeService {
             ((List) childrenMap.get("children")).add(childMap);
             getTree(child, childMap);
         }
-
         nodeMap.put(node.getId(), childrenMap);
 
         return nodeMap;
