@@ -27,6 +27,11 @@ public class Node {
     public Node() {
     }
 
+    public Node(Node parent, String label) {
+        this.parent = parent;
+        this.label = label;
+    }
+
     public Integer getId() {
         return id;
     }

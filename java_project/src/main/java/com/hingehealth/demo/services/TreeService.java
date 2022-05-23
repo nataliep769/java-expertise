@@ -31,9 +31,7 @@ public class TreeService {
         if (parentOptional.isEmpty()) {
             throw new Exception("A parent node with that id does not exist.");
         } else {
-            Node node = new Node();
-            node.setLabel(nodeRequest.getLabel());
-            node.setParent(parentOptional.get());
+            Node node = new Node(parentOptional.get(), nodeRequest.getLabel());
             nodeRepository.save(node);
 
             return "You successfully added a new node to your tree!";
@@ -43,15 +41,14 @@ public class TreeService {
     public Map<Integer, Map<String, Object>> getTree(Node node, Map<Integer, Map<String, Object>> nodeMap) {
         Map<String, Object> childrenMap = createChildrenMap(node);
 
-        if (node.getChildren() != null) {
-            for (Node child : node.getChildren()) {
-                Map<Integer, Map<String, Object>> childMap = new LinkedHashMap<>();
-                Map<String, Object> internalMap = createChildrenMap(child);
-                childMap.put(child.getId(), internalMap);
-                ((List) childrenMap.get("children")).add(childMap);
-                getTree(child, childMap);
-            }
+        for (Node child : node.getChildren()) {
+            Map<Integer, Map<String, Object>> childMap = new LinkedHashMap<>();
+            Map<String, Object> internalMap = createChildrenMap(child);
+            childMap.put(child.getId(), internalMap);
+            ((List) childrenMap.get("children")).add(childMap);
+            getTree(child, childMap);
         }
+
         nodeMap.put(node.getId(), childrenMap);
 
         return nodeMap;

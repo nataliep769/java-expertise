@@ -1,10 +1,13 @@
 package com.hingehealth.demo.models;
 
+import javax.validation.constraints.NotNull;
 
 public class NodeRequest {
 
+    @NotNull(message = "Parent is required")
     private Integer parentId;
 
+    @NotNull(message = "Label is required")
     private String label;
 
     public NodeRequest(Integer parentId, String label) {
