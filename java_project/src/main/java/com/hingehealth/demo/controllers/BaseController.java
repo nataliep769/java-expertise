@@ -4,6 +4,8 @@ import com.hingehealth.demo.models.NodeRequest;
 import com.hingehealth.demo.services.TreeService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,8 +24,8 @@ public class BaseController {
     }
 
     @GetMapping(value = "/tree")
-    public Map<Integer, Map<String, Object>> getTree() throws Exception {
-        return treeService.getTree();
+    public List<Map<Integer, Map<String, Object>>> getTree() throws Exception {
+        return Arrays.asList(treeService.getTree());
     }
 
     @PostMapping(value = "/tree")
