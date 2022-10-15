@@ -1,4 +1,4 @@
-# Hinge Health Services Code Challenge
+# Code Challenge
 
 ## Welcome. Thank you for taking the time to collaborate with us today.
 
