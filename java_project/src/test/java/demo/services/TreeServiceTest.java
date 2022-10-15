@@ -1,8 +1,8 @@
-package com.services;
+package demo.services;
 
-import com.models.Node;
-import com.models.NodeRequest;
-import com.repositories.NodeRepository;
+import demo.models.Node;
+import demo.models.NodeRequest;
+import demo.repositories.NodeRepository;
 import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

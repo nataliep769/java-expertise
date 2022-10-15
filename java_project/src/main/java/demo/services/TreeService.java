@@ -1,8 +1,8 @@
-package com.services;
+package demo.services;
 
-import com.repositories.NodeRepository;
-import com.models.Node;
-import com.models.NodeRequest;
+import demo.repositories.NodeRepository;
+import demo.models.Node;
+import demo.models.NodeRequest;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 

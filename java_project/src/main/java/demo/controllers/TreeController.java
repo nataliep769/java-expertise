@@ -1,7 +1,7 @@
-package com.controllers;
+package demo.controllers;
 
-import com.models.NodeRequest;
-import com.services.TreeService;
+import demo.models.NodeRequest;
+import demo.services.TreeService;
 import javassist.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +11,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class BaseController {
+public class TreeController {
 
     private final TreeService treeService;
 
-    public BaseController(TreeService treeService) {
+    public TreeController(TreeService treeService) {
         this.treeService = treeService;
     }
 

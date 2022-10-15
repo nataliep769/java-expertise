@@ -1,7 +1,7 @@
-package com.controllers;
+package demo.controllers;
 
-import com.models.NodeRequest;
-import com.services.TreeService;
+import demo.models.NodeRequest;
+import demo.services.TreeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,17 +15,17 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BaseControllerTest {
+class TreeControllerTest {
 
     @Mock
     private TreeService treeService;
 
     @InjectMocks
-    private BaseController baseController;
+    private TreeController treeController;
 
     @Test
     void testHelloWorld() {
-        String responseContents = baseController.helloWorld();
+        String responseContents = treeController.helloWorld();
         assertEquals("Hello World!", responseContents);
     }
 
@@ -35,7 +35,7 @@ class BaseControllerTest {
         when(treeService.getTree()).thenReturn(new HashMap<>());
 
         // WHEN
-        baseController.getTree();
+        treeController.getTree();
 
         // THEN
         verify(treeService).getTree();
@@ -48,7 +48,7 @@ class BaseControllerTest {
         when(treeService.addNodeToTree(nodeRequest)).thenReturn("You successfully added a new node to your tree!");
 
         // WHEN
-        String response = baseController.addNodeToTree(nodeRequest);
+        String response = treeController.addNodeToTree(nodeRequest);
 
         // THEN
         verify(treeService).addNodeToTree(nodeRequest);

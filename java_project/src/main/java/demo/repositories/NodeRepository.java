@@ -1,6 +1,6 @@
-package com.repositories;
+package demo.repositories;
 
-import com.models.Node;
+import demo.models.Node;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NodeRepository extends JpaRepository<Node, Integer> {
