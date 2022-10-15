@@ -1,7 +1,7 @@
-package com.hingehealth.demo.controllers;
+package com.controllers;
 
-import com.hingehealth.demo.models.NodeRequest;
-import com.hingehealth.demo.services.TreeService;
+import com.models.NodeRequest;
+import com.services.TreeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

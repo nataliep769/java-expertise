@@ -1,8 +1,9 @@
-package com.hingehealth.demo.services;
+package com.services;
 
-import com.hingehealth.demo.models.Node;
-import com.hingehealth.demo.models.NodeRequest;
-import com.hingehealth.demo.repositories.NodeRepository;
+import com.repositories.NodeRepository;
+import com.models.Node;
+import com.models.NodeRequest;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,20 +17,20 @@ public class TreeService {
         this.nodeRepository = nodeRepository;
     }
 
-    public Map<Integer, Map<String, Object>> getTree() throws Exception {
+    public Map<Integer, Map<String, Object>> getTree() throws NotFoundException {
         Optional<Node> rootOptional = nodeRepository.findById(1);
         if (rootOptional.isEmpty()) {
-            throw new Exception("Root does not exist!");
+            throw new NotFoundException("Root does not exist!");
         } else {
             Map<Integer, Map<String, Object>> nodeMap = new HashMap<>();
             return getTree(rootOptional.get(), nodeMap);
         }
     }
 
-    public String addNodeToTree(NodeRequest nodeRequest) throws Exception {
+    public String addNodeToTree(NodeRequest nodeRequest) throws NotFoundException {
         Optional<Node> parentOptional = nodeRepository.findById(nodeRequest.getParentId());
         if (parentOptional.isEmpty()) {
-            throw new Exception("A parent node with that id does not exist.");
+            throw new NotFoundException("A parent node with that id does not exist.");
         } else {
             Node node = new Node(parentOptional.get(), nodeRequest.getLabel());
             nodeRepository.save(node);

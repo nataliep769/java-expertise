@@ -1,8 +1,9 @@
-package com.hingehealth.demo.services;
+package com.services;
 
-import com.hingehealth.demo.models.Node;
-import com.hingehealth.demo.models.NodeRequest;
-import com.hingehealth.demo.repositories.NodeRepository;
+import com.models.Node;
+import com.models.NodeRequest;
+import com.repositories.NodeRepository;
+import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -87,7 +88,7 @@ public class TreeServiceTest {
         when(nodeRepository.findById(1)).thenReturn(Optional.empty());
 
         // WHEN
-        Exception exception = assertThrows(Exception.class, () -> treeService.getTree());
+        Exception exception = assertThrows(NotFoundException.class, () -> treeService.getTree());
 
         // THEN
         assertEquals("Root does not exist!", exception.getMessage());
@@ -112,13 +113,13 @@ public class TreeServiceTest {
     }
 
     @Test
-    void addNodeToTree_parentDoesNotExist_throwsException() throws Exception {
+    void addNodeToTree_parentDoesNotExist_throwsException() {
         // GIVEN
         NodeRequest nodeRequest = new NodeRequest(1, "hello");
         when(nodeRepository.findById(1)).thenReturn(Optional.empty());
 
         // WHEN
-        Exception exception = assertThrows(Exception.class, () -> treeService.addNodeToTree(nodeRequest));
+        Exception exception = assertThrows(NotFoundException.class, () -> treeService.addNodeToTree(nodeRequest));
 
         // THEN
         assertEquals("A parent node with that id does not exist.", exception.getMessage());

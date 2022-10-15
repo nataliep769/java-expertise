@@ -1,4 +1,4 @@
-package com.hingehealth.demo.models;
+package com.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
